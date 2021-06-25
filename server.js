@@ -2,12 +2,22 @@ const express = require("express");
 var { graphqlHTTP } = require("express-graphql");
 const { buildSchema } = require("graphql");
 var schema = buildSchema(`type Query {
-    hello: String
+    hello: String,
+    quoteOfTheDay: String
+    rollDice(numDice: Int!, numSides: Int!): [Int]
 }`);
 
 var root = {
   hello: () => {
     return "hello world!";
+  },
+  quoteOfTheDay: () => {
+    return "take it one step at a time";
+  },
+  rollDice: ({ numDice, numSides }) => {
+    var output = [];
+    output.push(numSides * numDice);
+    return output;
   },
 };
 
